@@ -97,6 +97,14 @@ public class TestMojo extends AbstractMojo implements LaunchConfigurationFactory
 	 */
 	private List<String> excludes;
 
+  /**
+   * Separate configuration file. Overrides the configuration provided for the
+   * plugin. Used primarily by TestNG.
+   *
+   * @parameter
+   */
+  private String suiteXmlFile;
+
 	/**
 	 * Specify this parameter if you want to use the test pattern matching
 	 * notation, Ant pattern matching, to select tests to run. The Ant pattern
@@ -486,6 +494,10 @@ public class TestMojo extends AbstractMojo implements LaunchConfigurationFactory
             }
         }
 
+    if (suiteXmlFile != null){
+            p.put("suiteXmlFile",suiteXmlFile);
+    }
+
 		try {
 			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(surefireProperties));
 			try {
@@ -503,6 +515,8 @@ public class TestMojo extends AbstractMojo implements LaunchConfigurationFactory
 			return "org.codehaus.tycho.surefire.junit.JUnitDirectoryTestSuite";
 		} else if (TestFramework.TEST_JUNIT4.equals(testFramework)) {
 			return "org.apache.maven.surefire.junit4.JUnit4DirectoryTestSuite";
+		} else if (TestFramework.TEST_TESTNG.equals(testFramework)) {
+			return "org.apache.maven.surefire.testng.TestNGAdapter";
 		}
 		throw new IllegalArgumentException(); // can't happen
 	}
@@ -631,6 +645,8 @@ public class TestMojo extends AbstractMojo implements LaunchConfigurationFactory
 			fragment = "org.sonatype.tycho.surefire.junit";
 		} else if (TestFramework.TEST_JUNIT4.equals(testFramework)) {
 			fragment = "org.sonatype.tycho.surefire.junit4";
+    } else if (TestFramework.TEST_TESTNG.equals(testFramework)) {
+      fragment  = "org.sonatype.tycho.surefire.testng";
 		} else {
 			throw new IllegalArgumentException("Unsupported test framework " + testFramework);
 		}

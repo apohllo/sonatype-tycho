@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tycho Surefire OSGi TestNG Runner
+Bundle-SymbolicName: org.sonatype.tycho.surefire.testng;singleton:=true
+Bundle-Version: 0.11.0.qualifier
+Fragment-Host: org.sonatype.tycho.surefire.osgibooter;bundle-version="0.11.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5,
+ JavaSE-1.6
+Bundle-ClassPath: .,jars/surefire-testng-2.5.jar,jars/maven-artifact-3.0.1.jar
+Export-Package: org.apache.maven.surefire.testng;
+  uses:="org.apache.maven.surefire.report,
+   org.apache.maven.surefire.suite,
+   org.apache.maven.surefire.testset,
+   org.apache.maven.artifact.versioning,
+   org.testng,
+   org.testng.internal"
+Require-Bundle: org.testng;bundle-version="[5.14.2,6.0.0)",
+ qdox.qdox;bundle-version="1.6.1",
+ org.beanshell.bsh;bundle-version="2.0.0",org.junit4

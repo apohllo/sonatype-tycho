@@ -14,6 +14,8 @@ public class TestFramework
 
     public static final String TEST_JUNIT4 = "org.junit4";
 
+    public static final String TEST_TESTNG = "org.testng";
+
     public String getTestFramework( List<ClasspathEntry> classpath )
         throws MojoExecutionException
     {
@@ -55,6 +57,10 @@ public class TestFramework
         else if ( TestFramework.TEST_JUNIT4.equals( symbolicName ) )
         {
             return TestFramework.TEST_JUNIT4;
+        }
+        else if ( TestFramework.TEST_TESTNG.equals( symbolicName ) )
+        {
+            return TestFramework.TEST_TESTNG;
         }
         return null;
     }

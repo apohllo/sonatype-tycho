@@ -17,6 +17,14 @@
     <module>org.sonatype.tycho.surefire.osgibooter</module>
     <module>org.sonatype.tycho.surefire.junit</module>
     <module>org.sonatype.tycho.surefire.junit4</module>
+    <module>org.sonatype.tycho.surefire.testng</module>
   </modules>
+  <repositories>
+    <repository>
+      <id>cast-external</id>
+      <layout>p2</layout>
+      <url>http://caribou.iisg.agh.edu.pl/proj/cast/update-external/</url>
+    </repository>
+  </repositories>
 
 </project>

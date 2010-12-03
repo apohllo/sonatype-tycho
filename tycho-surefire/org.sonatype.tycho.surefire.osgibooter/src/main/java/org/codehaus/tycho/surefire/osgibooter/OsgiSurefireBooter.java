@@ -34,6 +34,7 @@ public class OsgiSurefireBooter {
 		
 		ArrayList<String> includes = getIncludesExcludes(p.getProperty("includes"));
 		ArrayList<String> excludes = getIncludesExcludes(p.getProperty("excludes"));
+    String suiteXmlFile = p.getProperty("suiteXmlFile");
 
 		ClassLoader testClassLoader = getBundleClassLoader(plugin);
 		ClassLoader surefireClassLoader = Surefire.class.getClassLoader();
@@ -63,14 +64,25 @@ public class OsgiSurefireBooter {
 		});
 
 		List tests = new ArrayList();
-		tests.add(new Object[] {
-			runner,
-			new Object[] {
-				testDir,
-				includes,
-				excludes
-			}
-		});
+    if(suiteXmlFile == null){
+      tests.add(new Object[] {
+        runner,
+        new Object[] {
+          testDir,
+          includes,
+          excludes
+        }
+      });
+    } else {
+      tests.add(new Object[] {
+        runner,
+        new Object[] {
+          testDir,
+          suiteXmlFile
+        }
+      });
+    }
+
 
 		return surefire.run(reports, tests, surefireClassLoader, testClassLoader, true /*failIfNoTests*/);
 	}
