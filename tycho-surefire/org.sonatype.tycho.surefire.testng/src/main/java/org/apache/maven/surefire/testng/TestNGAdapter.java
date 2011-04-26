@@ -30,6 +30,7 @@ import org.apache.maven.surefire.testset.TestSetFailedException;
 import org.apache.maven.surefire.suite.AbstractDirectoryTestSuite;
 import org.apache.maven.surefire.suite.SurefireTestSuite;
 import org.testng.internal.ClassHelper;
+import org.testng.internal.PackageUtils;
 
 public class TestNGAdapter implements SurefireTestSuite {
         private SurefireTestSuite suite;
@@ -65,6 +66,7 @@ public class TestNGAdapter implements SurefireTestSuite {
         public Map locateTestSets( ClassLoader classLoader )
                         throws TestSetFailedException{
                 ClassHelper.addClassLoader(classLoader);
+                PackageUtils.addClassLoader(classLoader);
                 return suite.locateTestSets(classLoader);
         }
 
